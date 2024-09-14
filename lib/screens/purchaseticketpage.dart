@@ -195,7 +195,10 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                         ),
                       ),
                     ),
-                    child: Text('Submit'),
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

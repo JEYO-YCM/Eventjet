@@ -1,6 +1,11 @@
+import 'package:eventjet/screens/admin/admin_bottom_bar.dart';
+import 'package:eventjet/screens/admin/organizerhomepage.dart';
 import 'package:eventjet/screens/home.dart';
 import 'package:eventjet/screens/landingscreen.dart'; // Assuming this is the landing page
 import 'package:flutter/material.dart';
+import 'package:eventjet/screens/profilepage.dart';
+import 'package:eventjet/screens/ticketviewpage.dart';
+import 'package:eventjet/screens/notificationpage.dart'; // Import the NotificationsPage
 import 'package:fluentui_icons/fluentui_icons.dart';
 
 class BottomBar extends StatefulWidget {
@@ -16,8 +21,9 @@ class _BottomBarState extends State<BottomBar> {
   // List of widgets for each tab
   final List<Widget> _pages = [
     HomePage(),
-    Center(child: Text('Ticket Page')),
-    Center(child: Text('Profile Page')),
+    TicketViewPage(),
+    NotificationPage(), // Add NotificationsPage here
+    ProfilePage(),
   ];
 
   @override
@@ -60,15 +66,29 @@ class _BottomBarState extends State<BottomBar> {
             },
             tooltip: 'Log Out',
           ),
+          IconButton(
+            icon: const Icon(Icons.admin_panel_settings),
+            onPressed: () {
+              // Navigate to Landing Page and remove BottomBar from stack
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CustomBottomBar(), // Replace with your landing page widget
+                ),
+              );
+            },
+            tooltip: 'Log Out',
+          ),
         ],
       ),
       body: _pages[_currentIndex], // Display the corresponding page
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 2, 112, 35),
+        backgroundColor: Color.fromARGB(255, 2, 112, 35), // Background color
         elevation: 10,
-        iconSize: 20,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white,
+        iconSize: 20, // Icon size
+        selectedItemColor: Color.fromARGB(255, 2, 112, 35),
+        unselectedItemColor: Colors.black,
         currentIndex: _currentIndex, // Set the selected index
         onTap: (index) {
           setState(() {
@@ -85,6 +105,13 @@ class _BottomBarState extends State<BottomBar> {
             icon: Icon(FluentSystemIcons.ic_fluent_ticket_regular),
             activeIcon: Icon(FluentSystemIcons.ic_fluent_ticket_filled),
             label: "Ticket",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FluentSystemIcons
+                .ic_fluent_channel_notifications_regular), // Notifications icon
+            activeIcon:
+                Icon(FluentSystemIcons.ic_fluent_channel_notifications_filled),
+            label: "Notifications",
           ),
           BottomNavigationBarItem(
             icon: Icon(FluentSystemIcons.ic_fluent_person_regular),

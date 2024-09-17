@@ -1,5 +1,4 @@
 import 'package:eventjet/screens/bottomBar.dart';
-import 'package:eventjet/screens/home.dart';
 import 'package:eventjet/screens/registrationpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

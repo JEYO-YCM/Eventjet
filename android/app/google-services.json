@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "818422727600",
+    "project_id": "eventjet-bec54",
+    "storage_bucket": "eventjet-bec54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818422727600:android:96dab1366a5ba73688cc75",
+        "android_client_info": {
+          "package_name": "com.example.eventjet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBI0xmoE9MAZZmSF6WA-wtF67NOqPMEUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

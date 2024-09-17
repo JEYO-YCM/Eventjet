@@ -11,6 +11,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  bool _isEditing = false;
 
   @override
   void initState() {
@@ -21,13 +22,15 @@ class _ProfilePageState extends State<ProfilePage> {
     _emailController.text = "johndoe@example.com";
   }
 
+  void _toggleEditing() {
+    setState(() {
+      _isEditing = !_isEditing;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-        backgroundColor: Color.fromARGB(255, 2, 112, 35),
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -47,6 +50,19 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               SizedBox(height: 20),
 
+              // Edit Button
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: _toggleEditing,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 2, 112, 35),
+                  ),
+                  child: Text(_isEditing ? 'Cancel' : 'Edit'),
+                ),
+              ),
+              SizedBox(height: 20),
+
               // Form for editing profile information
               Form(
                 key: _formKey,
@@ -55,6 +71,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Name Input Field
                     TextFormField(
                       controller: _nameController,
+                      readOnly: !_isEditing,
                       decoration: InputDecoration(
                         labelText: 'Name',
                         prefixIcon: Icon(Icons.person,
@@ -73,6 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Contact Input Field
                     TextFormField(
                       controller: _contactController,
+                      readOnly: !_isEditing,
                       decoration: InputDecoration(
                         labelText: 'Contact Number',
                         prefixIcon: Icon(Icons.phone,
@@ -91,6 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Email Input Field
                     TextFormField(
                       controller: _emailController,
+                      readOnly: !_isEditing,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         prefixIcon: Icon(Icons.email,
@@ -110,33 +129,34 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: 20),
 
                     // Save Button
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          // Save the profile information
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Profile updated')),
-                          );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.white, // Button background color
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 100, vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                    if (_isEditing)
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            // Save the profile information
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Profile updated')),
+                            );
+                            _toggleEditing(); // Exit edit mode
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 2, 112, 35),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 100, vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: Text(
+                          'Save Changes',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
-                      child: Text(
-                        'Save Changes',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 2, 112, 35),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -144,36 +164,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomBar(), // Your bottom navigation bar
-    );
-  }
-}
-
-class BottomBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Color.fromARGB(255, 2, 112, 35),
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.grey,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.notifications),
-          label: 'Notifications',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
     );
   }
 }

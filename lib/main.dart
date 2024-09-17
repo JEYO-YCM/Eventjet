@@ -1,10 +1,28 @@
 import 'package:eventjet/screens/landingscreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:fluentui_icons/fluentui_icons.dart';
-import 'package:eventjet/screens/bottomBar.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyBGyOiUKZbd3W0Oi0HrrVJx7deW4y5uvAI",
+            authDomain: "eventjet-bec54.firebaseapp.com",
+            databaseURL: "https://eventjet-bec54-default-rtdb.firebaseio.com",
+            projectId: "eventjet-bec54",
+            storageBucket: "eventjet-bec54.appspot.com",
+            messagingSenderId: "818422727600",
+            appId: "1:818422727600:web:bdc11a4ed566174188cc75",
+            measurementId: "G-W8FRHL9YBS") // Ensure this file exists
+        );
+  } else {
+    await Firebase.initializeApp();
+  }
+
   runApp(const MyApp());
 }
 

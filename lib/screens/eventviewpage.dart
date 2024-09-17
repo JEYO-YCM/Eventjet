@@ -7,6 +7,8 @@ class EventViewPage extends StatelessWidget {
   final String eventTitle;
   final String eventInfo;
   final String ticketPrice;
+  final String mobileMoneyLine;
+  final String registeredName;
 
   const EventViewPage({
     super.key,
@@ -14,6 +16,8 @@ class EventViewPage extends StatelessWidget {
     required this.eventTitle,
     required this.eventInfo,
     required this.ticketPrice,
+    required this.mobileMoneyLine,
+    required this.registeredName,
   });
 
   @override
@@ -29,6 +33,7 @@ class EventViewPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Event Image
               CachedNetworkImage(
                 imageUrl: imageUrl,
                 height: 200,
@@ -37,9 +42,12 @@ class EventViewPage extends StatelessWidget {
                 placeholder: (context, url) => const Center(
                   child: CircularProgressIndicator(),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error_outline),
               ),
               const SizedBox(height: 20),
+
+              // Event Title
               Text(
                 eventTitle,
                 style: const TextStyle(
@@ -48,6 +56,8 @@ class EventViewPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
+
+              // Event Info
               Text(
                 eventInfo,
                 style: const TextStyle(
@@ -55,25 +65,59 @@ class EventViewPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
+
+              // Ticket Price
               Text(
-                'Price: $ticketPrice',
+                'Ticket Price: $ticketPrice',
                 style: const TextStyle(
                   fontSize: 18,
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 20),
+
+              // Payment Details Section Title
+              Text(
+                'Payment Details:',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              // Mobile Money Line
+              Text(
+                'Mobile Money Line: $mobileMoneyLine',
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              // Registered Name
+              Text(
+                'Registered Name: $registeredName',
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
               const SizedBox(height: 40),
+
+              // Buy Ticket Button
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigate to BuyTicketPage
+                    // Navigate to BuyTicketPage and pass event details
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BuyTicketPage(
-                          eventTitle: 'yomaps',
-                          ticketPrice: '320',
+                        builder: (context) => BuyTicketPage(
+                          eventTitle: eventTitle, // Pass the event title
+                          ticketPrice: ticketPrice,
+                          mobileMoneyLine: mobileMoneyLine,
+                          registeredName: registeredName,
                         ),
                       ),
                     );

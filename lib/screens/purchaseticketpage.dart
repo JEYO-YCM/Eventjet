@@ -1,15 +1,19 @@
+import 'dart:io'; // To work with File
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class BuyTicketPage extends StatefulWidget {
   final String eventTitle;
   final String ticketPrice;
+  final String mobileMoneyLine;
+  final String registeredName;
 
   const BuyTicketPage({
     super.key,
     required this.eventTitle,
     required this.ticketPrice,
+    required this.mobileMoneyLine,
+    required this.registeredName,
   });
 
   @override
@@ -21,7 +25,6 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
-  // ignore: unused_field
   final TextEditingController _sectionController = TextEditingController();
 
   // Add a variable to hold the selected section
@@ -168,6 +171,28 @@ class _BuyTicketPageState extends State<BuyTicketPage> {
                     ),
                   ],
                 ),
+                SizedBox(height: 20),
+
+                // Display the selected image (if available)
+                if (_proofImage != null)
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Color.fromARGB(255, 2, 112, 35), // Border color
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.file(
+                        File(_proofImage!.path),
+                        height: 150,
+                        width: 150,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 SizedBox(height: 20),
 
                 // Submit Button

@@ -7,6 +7,8 @@ class Mediacard extends StatelessWidget {
   final String eventTitle;
   final String eventInfo;
   final String ticketPrice;
+  final String mobileMoneyLine;
+  final String registeredName;
 
   const Mediacard({
     super.key,
@@ -14,6 +16,8 @@ class Mediacard extends StatelessWidget {
     required this.eventTitle,
     required this.eventInfo,
     required this.ticketPrice,
+    required this.mobileMoneyLine,
+    required this.registeredName,
   });
 
   @override
@@ -30,6 +34,8 @@ class Mediacard extends StatelessWidget {
                 eventTitle: eventTitle,
                 eventInfo: eventInfo,
                 ticketPrice: ticketPrice,
+                mobileMoneyLine: mobileMoneyLine,
+                registeredName: registeredName,
               ),
             ),
           );
@@ -80,6 +86,22 @@ class Mediacard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
+                    Text(
+                      'Mobile Money Line: $mobileMoneyLine',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Registered Name: $registeredName',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -93,7 +115,7 @@ class Mediacard extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            // Add further actions if needed
+                            // Define action on press, such as navigating to purchase page or showing more info
                           },
                           icon: const Icon(Icons.arrow_forward),
                         ),
